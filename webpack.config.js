@@ -9,6 +9,7 @@
  */
 const path = require("path");
 const webpack = require("webpack");
+var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HappyPack = require("happypack");
 module.exports = {
@@ -16,22 +17,30 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
     app: ["./src/app/app.tsx"],
-    vendor: ["react", "react-dom"]
+    vendor: ["@babel/polyfill", "react", "react-dom"]
   },
+  // entry: ["webpack-hot-middleware/client", 'webpack/hot/only-dev-server', "./src/app/app.tsx"],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "js/[name].bundle.js"
   },
   devtool: "source-map",
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"]
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+    alias: {
+      // "react-hot-loader": path.resolve(path.join(__dirname, "./node_modules/react-hot-loader")),
+      "react": path.resolve(path.join(__dirname, "./node_modules/react"))
+    }
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: "ts-loader",
-        include: [path.resolve("src")],
+        loader: "babel-loader",
+        options: {
+          cacheDirectory: true,
+        },
+        // include: [path.resolve("src")],
         exclude: /node_modules/
       },
       {
@@ -48,6 +57,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname,  "src/app", "index.html"),
     }),
+    new ForkTsCheckerWebpackPlugin(),
     new HappyPack({
       id: "js-pack",
       threads: 4,

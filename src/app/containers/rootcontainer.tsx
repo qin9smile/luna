@@ -7,9 +7,14 @@
  * Date      	By       	Comments
  * ----------	---------	-------------------------------------------------------
  */
+import * as React from 'react';
+import { Hello } from "../components/hello";
+import { hot } from "react-hot-loader/root";
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import RootContainer from "./containers/rootcontainer";
+const RootContainer = () => (
+  <Hello compiler="Typescript" framework="React" bundler="Webpack" />
+);
 
-ReactDOM.render(<RootContainer />, document.getElementById("root"));
+export default hot(RootContainer);
+
+
