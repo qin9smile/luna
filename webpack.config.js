@@ -8,13 +8,17 @@
  * ----------	---------	-------------------------------------------------------
  */
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HappyPack = require("happypack");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+  name: "app",
+  dependencies: ["vendors"],
   entry: {
     app: ["./src/app/app.tsx"],
-    vendor: ["react", "react-dom"]
+    // vendor: ["react", "react-dom"]
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -44,17 +48,17 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'app', 'index.html')
+      template: path.resolve(__dirname, 'dist', 'index.html'),
     }),
     new HappyPack({
       id: "js-pack",
       threads: 4,
       loaders: ["babel-loader?cacheDirectory=true"]
-    })
+    }),
+    new webpack.DllReferencePlugin({
+      // context: __dirname,
+      manifest: require("./dist/vendors-manifest.json")
+    }),
+    new BundleAnalyzerPlugin()
   ]
 };
-
-
-
-
-

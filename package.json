@@ -4,8 +4,11 @@
   "description": "starter",
   "main": "index.js",
   "scripts": {
+    "prestart": "",
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production",
+    "build-dll": "webpack --config webpack.dll.config.js",
+    "build": "npm run build-dll && npm run build-main",
+    "build-main": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,6 +37,7 @@
     "source-map-loader": "^0.2.4",
     "ts-loader": "^5.3.3",
     "webpack": "^4.29.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   }
