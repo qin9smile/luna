@@ -14,6 +14,7 @@ const library = "[name]_lib";
 const path = require("path");
 
 module.exports = {
+  mode: "production",
   entry: {
     vendors: ["react", "react-dom"]
   },
