@@ -8,7 +8,8 @@
  * ----------	---------	-------------------------------------------------------
  */
 
-import * as React from 'react';
+import * as React from "react";
+import { Button } from "antd";
 interface IProps {
   compiler: string,
   framework: string,
@@ -16,7 +17,7 @@ interface IProps {
 }
 export class Hello extends React.Component<IProps, {}> {
   render() {
-    return <h1>This is a {this.props.framework} application using    {this.props.compiler} with {this.props.bundler}</h1>
+    return <h1>This is a {this.props.framework} application using <Button>button</Button>    {this.props.compiler} with {this.props.bundler}</h1>
   }
 }
 
