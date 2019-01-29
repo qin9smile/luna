@@ -9,7 +9,8 @@
     "build-dll": "webpack --config webpack.dll.config.js",
     "build": "npm run build-dll && npm run build-main",
     "build-main": "webpack --config webpack.prod.config.js",
-    "format": "prettier \"src/**/*.{js, jsx, css, html, sass, json} \" ",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,html,sass,json}\"",
+    "format:check": "prettier --list-different \"src/**/*.{ts,tsx,js,jsx,css,html,sass,json}\"",
     "test": "jest",
     "changelog": "lerna-changelog"
   },
